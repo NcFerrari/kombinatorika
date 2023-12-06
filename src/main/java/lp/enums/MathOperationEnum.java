@@ -6,7 +6,9 @@ import java.util.Objects;
 
 public enum MathOperationEnum {
 
-    VARIATION(NamespaceEnum.VARIATION_TEXT, NamespaceEnum.VARIATION_FORMULA, NamespaceEnum.VARIATION_FORMULA_IMAGE);
+    VARIATION(NamespaceEnum.VARIATION_TEXT, NamespaceEnum.VARIATION_FORMULA, NamespaceEnum.VARIATION_FORMULA_IMAGE),
+    PERMUTATION(NamespaceEnum.PERMUTATION_TEXT, NamespaceEnum.PERMUTATION_FORMULA,
+            NamespaceEnum.PERMUTATION_FORMULA_IMAGE);
 
     private final NamespaceEnum title;
     private final NamespaceEnum formulaText;

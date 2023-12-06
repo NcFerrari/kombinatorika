@@ -28,6 +28,7 @@ public class MainApp extends Application {
         LeftSide leftSide = new LeftSide(scene, mainPane);
         leftSide.initInputPane();
         leftSide.addVariationPane();
+        leftSide.addPermutationPane();
     }
 
     private void dynamicDevelopmentStyling(Scene scene) {

@@ -54,6 +54,10 @@ public class LeftSide {
         addFunctionPane(MathOperationEnum.VARIATION);
     }
 
+    public void addPermutationPane() {
+        addFunctionPane(MathOperationEnum.PERMUTATION);
+    }
+
     private void addFunctionPane(MathOperationEnum moe) {
         FlowPane functionPane = new FlowPane();
         functionPane.setHgap(20);
@@ -104,6 +108,7 @@ public class LeftSide {
         int k = Integer.parseInt(kTextField.getText());
         int n = Integer.parseInt(nTextField.getText());
         labelMap.get(NamespaceEnum.VARIATION_TEXT).setText(String.valueOf(combinatorics.variation(k, n)));
+        labelMap.get(NamespaceEnum.PERMUTATION_TEXT).setText(String.valueOf(combinatorics.permutation(n)));
     }
 
 }

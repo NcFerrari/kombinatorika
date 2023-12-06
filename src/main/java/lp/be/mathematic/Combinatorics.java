@@ -38,6 +38,9 @@ public class Combinatorics {
      * @return sum of factorial
      */
     public long permutation(int n) {
+        if (n == 0) {
+            return 1;
+        }
         return variation(n, n);
     }
 
