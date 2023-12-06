@@ -13,15 +13,23 @@ public class Manager {
     private final Logger log = loggerService.getLog();
     private final Combinatorics combinatorics = new Combinatorics();
 
-    public static Manager getInstance() {
+    public static void getInstance() {
         if (manager == null) {
             manager = new Manager();
         }
-        return manager;
     }
 
     private Manager() {
+        log.info("WELCOME TO MATHEMATIC");
+        count();
+    }
+
+    private void count() {
         log.info(combinatorics.variation(2, 3));
+        log.info(combinatorics.permutation(4));
+        log.info(combinatorics.variation(3, 8) - combinatorics.permutation(4));
+        combinatorics.count();
+        log.info(combinatorics.factorial(7));
     }
 
     public static void main(String[] args) {
