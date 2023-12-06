@@ -12,7 +12,13 @@ public enum NamespaceEnum {
     NUMBER_REGEX("\\d*"),
     K_TEXT("k="),
     N_TEXT("n="),
+    VARIATION_TEXT("VARIACE"),
+    VARIATION_FORMULA("\tV(k, n)"),
+    COUNT("Vypočítej"),
     TEMPORARY_CSS_FILE("file:///C://temp/temporaryCSS.css"),
+    BLUE_STYLE("blue-style"),
+    LIGHT_BLUE_STYLE("light-blue-style"),
+    FUNCTION_TITLE_STYLE("function-style"),
     INPUT_LABEL_STYLE("input-label-style");
 
     private final String text;

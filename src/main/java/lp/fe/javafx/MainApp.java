@@ -27,12 +27,7 @@ public class MainApp extends Application {
 
         LeftSide leftSide = new LeftSide(scene, mainPane);
         leftSide.initInputPane();
-
-
-//        Label label = new Label("Variace");
-//        Label label3 = new Label("V(k, n)");
-//        Button button2 = new Button("Vypočítej");
-//        mainPane.getChildren().addAll(label);
+        leftSide.addVariationPane();
     }
 
     private void dynamicDevelopmentStyling(Scene scene) {
