@@ -14,6 +14,7 @@ public enum NamespaceEnum {
     N_TEXT("n="),
     VARIATION_TEXT("VARIACE"),
     VARIATION_FORMULA("V(k, n)"),
+    VARIATION_FORMULA_IMAGE("images/variace.png"),
     COUNT("Zobraz"),
     TEMPORARY_CSS_FILE("file:///C://temp/temporaryCSS.css"),
     BLUE_STYLE("blue-style"),

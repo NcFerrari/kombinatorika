@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -16,9 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import lp.be.mathematic.Combinatorics;
+import lp.enums.MathOperationEnum;
 import lp.enums.NamespaceEnum;
-
-import java.util.Objects;
 
 public class LeftSide {
 
@@ -53,10 +51,10 @@ public class LeftSide {
     }
 
     public void addVariationPane() {
-        addFunctionPane(NamespaceEnum.VARIATION_TEXT, NamespaceEnum.VARIATION_FORMULA.getText());
+        addFunctionPane(MathOperationEnum.VARIATION);
     }
 
-    private void addFunctionPane(NamespaceEnum namespace, String formulaText) {
+    private void addFunctionPane(MathOperationEnum moe) {
         FlowPane functionPane = new FlowPane();
         functionPane.setHgap(20);
         functionPane.setAlignment(Pos.CENTER);
@@ -65,17 +63,17 @@ public class LeftSide {
         functionPaneStyle = functionPaneStyle.equals(NamespaceEnum.BLUE_STYLE.getText()) ?
                 NamespaceEnum.LIGHT_BLUE_STYLE.getText() : NamespaceEnum.BLUE_STYLE.getText();
         flowPanes.getChildren().add(functionPane);
-        Label title = new Label(namespace.getText());
+        Label title = new Label(moe.getTitle());
         title.getStyleClass().add(NamespaceEnum.FUNCTION_TITLE_STYLE.getText());
-        Label formula = new Label(formulaText);
+        Label formula = new Label(moe.getFormulaText());
         formula.getStyleClass().add(NamespaceEnum.FUNCTION_TITLE_STYLE.getText());
         ImageView formulaImage = new ImageView();
-        formulaImage.setImage(new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("images/variace.png"))));
+        formulaImage.setImage(moe.getImage());
         formulaImage.setFitWidth(150);
         formulaImage.setFitHeight(75);
         Label result = new Label();
         result.getStyleClass().add(NamespaceEnum.FUNCTION_TITLE_STYLE.getText());
-        labelMap.put(namespace, result);
+        labelMap.put(moe.getNamespace(), result);
         Button showButton = new Button(NamespaceEnum.COUNT.getText());
         functionPane.getChildren().addAll(title, formula, formulaImage, result, showButton);
     }
