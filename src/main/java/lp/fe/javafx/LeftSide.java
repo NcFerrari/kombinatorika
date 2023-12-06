@@ -1,17 +1,24 @@
 package lp.fe.javafx;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import lp.be.mathematic.Combinatorics;
 import lp.enums.NamespaceEnum;
+
+import java.util.Objects;
 
 public class LeftSide {
 
@@ -19,6 +26,10 @@ public class LeftSide {
     private final VBox flowPanes;
     private String functionPaneStyle = NamespaceEnum.BLUE_STYLE.getText();
     private final double widthSize;
+    private final ObservableMap<NamespaceEnum, Label> labelMap = FXCollections.observableHashMap();
+    private final Combinatorics combinatorics = new Combinatorics();
+    private TextField kTextField;
+    private TextField nTextField;
 
     public LeftSide(Scene scene, HBox mainPane) {
         widthSize = scene.getWidth() / 2;
@@ -36,29 +47,37 @@ public class LeftSide {
         leftPane.setTop(inputPane);
 
         addLabel(inputPane, NamespaceEnum.K_TEXT.getText());
-        addTextField(inputPane);
+        kTextField = addTextField(inputPane);
         addLabel(inputPane, NamespaceEnum.N_TEXT.getText());
-        addTextField(inputPane);
+        nTextField = addTextField(inputPane);
     }
 
     public void addVariationPane() {
-        addFunctionPane(NamespaceEnum.VARIATION_TEXT.getText(), NamespaceEnum.VARIATION_FORMULA.getText());
+        addFunctionPane(NamespaceEnum.VARIATION_TEXT, NamespaceEnum.VARIATION_FORMULA.getText());
     }
 
-    private void addFunctionPane(String text, String formulaText) {
+    private void addFunctionPane(NamespaceEnum namespace, String formulaText) {
         FlowPane functionPane = new FlowPane();
-        functionPane.setAlignment(Pos.CENTER_LEFT);
+        functionPane.setHgap(20);
+        functionPane.setAlignment(Pos.CENTER);
         functionPane.setPrefSize(widthSize - 5, 150);
         functionPane.getStyleClass().add(functionPaneStyle);
         functionPaneStyle = functionPaneStyle.equals(NamespaceEnum.BLUE_STYLE.getText()) ?
                 NamespaceEnum.LIGHT_BLUE_STYLE.getText() : NamespaceEnum.BLUE_STYLE.getText();
         flowPanes.getChildren().add(functionPane);
-        Label title = new Label(text);
+        Label title = new Label(namespace.getText());
         title.getStyleClass().add(NamespaceEnum.FUNCTION_TITLE_STYLE.getText());
         Label formula = new Label(formulaText);
         formula.getStyleClass().add(NamespaceEnum.FUNCTION_TITLE_STYLE.getText());
-        Button button = new Button(NamespaceEnum.COUNT.getText());
-        functionPane.getChildren().addAll(title, formula, button);
+        ImageView formulaImage = new ImageView();
+        formulaImage.setImage(new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("images/variace.png"))));
+        formulaImage.setFitWidth(150);
+        formulaImage.setFitHeight(75);
+        Label result = new Label();
+        result.getStyleClass().add(NamespaceEnum.FUNCTION_TITLE_STYLE.getText());
+        labelMap.put(namespace, result);
+        Button showButton = new Button(NamespaceEnum.COUNT.getText());
+        functionPane.getChildren().addAll(title, formula, formulaImage, result, showButton);
     }
 
     private void addLabel(FlowPane inputPane, String text) {
@@ -68,14 +87,25 @@ public class LeftSide {
         inputPane.getChildren().add(label);
     }
 
-    private void addTextField(FlowPane inputPane) {
+    private TextField addTextField(FlowPane inputPane) {
         TextField textField = new TextField();
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches(NamespaceEnum.NUMBER_REGEX.getText())) {
                 textField.setText(oldValue);
             }
+            count();
         });
         inputPane.getChildren().add(textField);
+        return textField;
+    }
+
+    private void count() {
+        if (kTextField.getText().isBlank() || nTextField.getText().isBlank()) {
+            return;
+        }
+        int k = Integer.parseInt(kTextField.getText());
+        int n = Integer.parseInt(nTextField.getText());
+        labelMap.get(NamespaceEnum.VARIATION_TEXT).setText(String.valueOf(combinatorics.variation(k, n)));
     }
 
 }
